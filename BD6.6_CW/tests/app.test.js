@@ -6,6 +6,7 @@ const { app } = require('../index.js');
 jest.mock('../controllers', () => ({
   ...jest.requireActual('../controllers'),
   getAllEmployees: jest.fn(),
+  getEmployeeById : jest.fn(),
 }));
 
 let server;
@@ -85,14 +86,16 @@ describe('Api Endpoints', () => {
     expect(res.body.employees.length).toBe(3);
   });
   it('should be return details of particular employee by Id', async () => {
-    const res = await request(server).get('/employees/details/1');
-    expect(res.status).toBe(200);
-    expcet(res.body).toEqual({
+    const mockEmployee =  {
       employeeId: 1,
       name: 'Rahul Sharma',
       email: 'rahul.sharma@example.com',
       departmentId: 1,
       roleId: 1,
-    });
+    }
+    getEmployeeById.mockResolvedValue(mockEmployee);
+    const res = await request(server).get('/employees/details/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockEmployee);
   });
 });
