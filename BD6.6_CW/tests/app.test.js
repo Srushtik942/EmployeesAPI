@@ -93,7 +93,7 @@ describe('Api Endpoints', () => {
       departmentId: 1,
       roleId: 1,
     }
-    getEmployeeById.mockResolvedValue(mockEmployee);
+    getEmployeeById.mockReturnValue(mockEmployee);
     const res = await request(server).get('/employees/details/1');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockEmployee);
