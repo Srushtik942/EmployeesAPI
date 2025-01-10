@@ -15,7 +15,7 @@ app.get('/employees', async (req, res) => {
 // Retrieve Employee by ID
 
 app.get('/employees/details/:id',async(req,res)=>{
-  let result = getEmployeeById(req.params.id);
+  let result = await getEmployeeById(req.params.id);
   res.json({
     result
   });
